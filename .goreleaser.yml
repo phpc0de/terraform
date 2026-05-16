@@ -1,0 +1,33 @@
+# .goreleaser.yml
+version: 1
+project_name: terraform
+
+builds:
+  - id: terraform
+    goos:
+      - windows
+      - linux
+    goarch:
+      - amd64
+    env:
+      - CGO_ENABLED=0
+    main: ./cmd/terraform
+    ldflags:
+      - -s -w
+
+archives:
+  - id: terraform
+    builds:
+      - terraform
+    format: zip
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else }}{{ .Arch }}{{ end }}
+
+checksum:
+  name_template: 'sha256sums.txt'
+
+changelog:
+  skip: true
