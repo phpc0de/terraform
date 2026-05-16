@@ -11,7 +11,7 @@ builds:
       - amd64
     env:
       - CGO_ENABLED=0
-    main: .
+    main: . # Correct path to the main.go file
     ldflags:
       - -s -w
 
